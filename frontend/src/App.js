@@ -8,7 +8,7 @@ function App() {
   async function getMessage() {
     try {
       const {data} = await axios.get('/api');
-      setMessage(data.res);
+      setMessage(data);
     } catch (error) {
       console.error(error);
     }

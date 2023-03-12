@@ -25,7 +25,7 @@ function body(message) {
         color="text.primary"
         gutterBottom
       >
-        Open Avenue Internship - Develope A Data Scrubber Application for Protected Health Information
+        Open Avenue Internship - Data Scrubber Application for Protected Health Information
       </Typography>
       <Typography variant="h5" align="center" color="text.secondary" component="p">
         PROJECT LEADER: Rishabh Gupta

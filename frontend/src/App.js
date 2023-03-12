@@ -1,6 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import DisplayMessage from './DisplayMessage';
 
 function App() {
   const [message, setMessage] = useState(0);
@@ -16,11 +17,11 @@ function App() {
 
   useEffect(() => {
     getMessage();
-  }, []);
+  }, [message]);
 
   return (
     <div>
-      {message}
+      {message && <DisplayMessage message={message}/>}
     </div>
   );
 }

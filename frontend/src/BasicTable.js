@@ -17,7 +17,7 @@ export default function BasicTable({message}) {
             if(i === 0) {
                 return (<TableCell key={i} component="th" scope="row">{e}</TableCell>)
             } else if (i === 3) {
-                return (<TableCell key={i} component="th" scope="row">{e.slice(0, 17)}</TableCell>)
+                return (<TableCell key={i} component="th" scope="row">{e.slice(5, 17)}</TableCell>)
             }
 
             return (<TableCell key={i} align="right">{e}</TableCell>)
@@ -57,11 +57,11 @@ export default function BasicTable({message}) {
         <TableHead sx={{ border: 1 }}>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell align="right">First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Age</TableCell>
+            <TableCell align="center">First Name</TableCell>
+            <TableCell align="center">Last Name</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Email</TableCell>
+            <TableCell align="center">Age</TableCell>
           </TableRow>
         </TableHead>
             {createTableBody(rows)}

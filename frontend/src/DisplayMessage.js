@@ -17,7 +17,7 @@ function Copyright(props) {
 
 function body(message) {
   return (
-    <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+    <Container disableGutters maxWidth="md" component="main" sx={{ pt: 8, pb: 6 }}>
       <Typography
         component="h1"
         variant="h2"
@@ -25,7 +25,7 @@ function body(message) {
         color="text.primary"
         gutterBottom
       >
-        Open Avenue Foundation - Data Scrubber Application for Protected Health Information
+        Open Avenue Internship - Develope A Data Scrubber Application for Protected Health Information
       </Typography>
       <Typography variant="h5" align="center" color="text.secondary" component="p">
         PROJECT LEADER: Rishabh Gupta

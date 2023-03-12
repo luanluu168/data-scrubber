@@ -16,7 +16,9 @@ export default function BasicTable({message}) {
         return element.map((e, i) => {
             if(i === 0) {
                 return (<TableCell key={i} component="th" scope="row">{e}</TableCell>)
-            } 
+            } else if (i === 3) {
+                return (<TableCell key={i} component="th" scope="row">{e.slice(0, 17)}</TableCell>)
+            }
 
             return (<TableCell key={i} align="right">{e}</TableCell>)
         });

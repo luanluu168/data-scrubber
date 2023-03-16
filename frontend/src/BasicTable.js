@@ -6,10 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-export default function BasicTable({message}) {
-    const [rows, setRows] = useState(0);
+export default function BasicTable({message, rows, setRows}) {
     const TABLE_MIN_WIDTH = 450;
 
     function getCols(element) {
@@ -20,23 +19,38 @@ export default function BasicTable({message}) {
                 return (<TableCell key={i} component="th" scope="row">{e.slice(5, 17)}</TableCell>)
             }
 
-            return (<TableCell key={i} align="right">{e}</TableCell>)
+            return (<TableCell key={i} align="center">{e}</TableCell>)
         });
     }
 
     function createTableBody(rows) {
-        return (<TableBody>
-                    {
-                        rows.map(({element}) => (
-                            <TableRow
-                                key={ element[0] }
-                                sx={{ border: 1 }}
-                            >
-                                { getCols(element) }
-                            </TableRow>
-                        ))
-                    }
-                </TableBody>)
+        return (
+            <TableBody>
+                {
+                    rows.map(({element}) => (
+                        <TableRow
+                            key={ element[0] }
+                            sx={{ border: 1 }}
+                        >
+                            { getCols(element) }
+                        </TableRow>
+                    ))
+                }
+            </TableBody>
+        );
+    }
+
+    function createTableHeader() {
+        <TableHead sx={{ border: 1.5 }}>
+          <TableRow sx={{ bgcolor: 'text.disabled' }}>
+            <TableCell align="center" sx={{ fontWeight: 'bold' }}>Id</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 'bold' }}>First Name</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 'bold' }}>Date</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
+          </TableRow>
+        </TableHead>
     }
 
     useEffect(() => {
@@ -54,17 +68,8 @@ export default function BasicTable({message}) {
     rows && 
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: TABLE_MIN_WIDTH }} aria-label="simple table">
-        <TableHead sx={{ border: 1 }}>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="center">First Name</TableCell>
-            <TableCell align="center">Last Name</TableCell>
-            <TableCell align="center">Date</TableCell>
-            <TableCell align="center">Email</TableCell>
-            <TableCell align="center">Age</TableCell>
-          </TableRow>
-        </TableHead>
-            {createTableBody(rows)}
+        {createTableHeader()}
+        {createTableBody(rows)}
       </Table>
     </TableContainer>
   );

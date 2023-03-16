@@ -17,11 +17,11 @@ function App() {
 
   useEffect(() => {
     getMessage();
-  }, [message]);
+  }, []);
 
   return (
     <div>
-      {message && <DisplayMessage message={message}/>}
+      {message && <DisplayMessage message={message} setMessage={setMessage}/>}
     </div>
   );
 }

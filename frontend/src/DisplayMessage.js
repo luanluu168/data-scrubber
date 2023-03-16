@@ -6,80 +6,85 @@ import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 import BasicTable from './BasicTable';
+import InsertUserModal from './InsertUserModal';
+import { useState } from 'react';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      { 'Copyright © Luan Luu ' + new Date().getFullYear() + '.' }
-    </Typography>
-  );
-}
+function DisplayMessage({message, setMessage}) {
+  const [rows, setRows] = useState(0);
 
-function body(message) {
-  return (
-    <Container disableGutters maxWidth="md" component="main" sx={{ pt: 8, pb: 6 }}>
-      <Typography
-        component="h1"
-        variant="h2"
-        align="center"
-        color="text.primary"
-        gutterBottom
+  function navBar() {
+    return (
+      <AppBar
+        position="static"
+        color="default"
+        elevation={0}
+        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
-        Open Avenue Internship - Data Scrubber Application for Protected Health Information
-      </Typography>
-      <Typography variant="h5" align="center" color="text.secondary" component="p">
-        PROJECT LEADER: Rishabh Gupta
-      </Typography>
-      
-      <BasicTable message={message}/>
-      <Typography>
+        <Toolbar sx={{ flexWrap: 'wrap' }}>
+          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+            Data Scrubber
+          </Typography>
+          <InsertUserModal message={message} setMessage={setMessage} setRows={setRows}/>
+        </Toolbar>
+      </AppBar>
+    );
+  }
 
-      </Typography>
-    </Container>
-  );
-}
-
-function navBar() {
-  return (
-    <AppBar
-      position="static"
-      color="default"
-      elevation={0}
-      sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-    >
-      <Toolbar sx={{ flexWrap: 'wrap' }}>
-        <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          Data Scrubber
+  function body() {
+    return (
+      <Container disableGutters maxWidth="md" component="main" sx={{ pt: 8, pb: 6 }}>
+        <Typography
+          component="h1"
+          variant="h2"
+          align="center"
+          color="text.primary"
+          gutterBottom
+        >
+          Open Avenue Internship - Data Scrubber Application for Protected Health Information
         </Typography>
-      </Toolbar>
-    </AppBar>
-  );
-}
+        <Typography variant="h5" align="center" color="text.secondary" component="p">
+          Project Leader: Rishabh Gupta
+        </Typography>
+        
+        <BasicTable message={message} rows={rows} setRows={setRows}/>
+        <Typography>
+  
+        </Typography>
+      </Container>
+    );
+  }
 
-function footer() {
-  return (
-    <Container
-      maxWidth="md"
-      component="footer"
-      sx={{
-        borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-        mt: 8,
-        py: [3, 6],
-      }}
-    >
-      <Copyright sx={{ mt: 5 }} />
-    </Container>
-  );
-}
+  function footer() {
+    return (
+      <Container
+        maxWidth="md"
+        component="footer"
+        sx={{
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 8,
+          py: [3, 6],
+        }}
+      >
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    );
+  }
 
-function DisplayMessage({message}) {
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center">
+        { 'Copyright © Luan Luu ' + new Date().getFullYear() + '.' }
+      </Typography>
+    );
+  }
+
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
       { navBar() }
       
-      { body(message) }
+      { body() }
 
       { footer() }
     </React.Fragment>

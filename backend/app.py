@@ -36,5 +36,13 @@ def addUsers():
                              % (data.get('firstName'), data.get('lastName'), data.get('dob'), data.get('email'), data.get('age')) \
                              + ' RETURNING *'))
 
+@app.route("/api/deleteUser", methods = ['POST'])
+def deleteUser():
+    data = request.json
+
+    return jsonify(queryUser("DELETE FROM users WHERE unique_id = \'%s\'" \
+                             % (data.get('unique_id')) \
+                             + ' RETURNING *'))
+
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 4000)

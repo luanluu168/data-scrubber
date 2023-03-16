@@ -46,7 +46,7 @@ function DisplayMessage({message, setMessage}) {
           Project Leader: Rishabh Gupta
         </Typography>
         
-        <BasicTable message={message} rows={rows} setRows={setRows}/>
+        <BasicTable message={message} setMessage={setMessage} rows={rows} setRows={setRows}/>
         <Typography>
   
         </Typography>

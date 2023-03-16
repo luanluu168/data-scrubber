@@ -28,11 +28,10 @@ export default function BasicTable({message, rows, setRows}) {
     }
 
     async function deleteRow(value) {
-        console.log("deleteRow " + value);
         const {data} = await axios.post('/api/deleteUser', {
             unique_id: value
         });
-        console.log(data);
+        return data;
     }
 
     function createTableBody(rows) {
@@ -45,9 +44,10 @@ export default function BasicTable({message, rows, setRows}) {
                             sx={{ border: 1 }}
                         >
                             { getCols(element) }
+                            {console.log(element[0])}
                             <TableCell key={i} component="th" scope="row">
                                 <Stack direction="row" alignItems="center" spacing={1}>
-                                    <IconButton aria-label="delete" size="small" value={element[0]} onClick={(event) => deleteRow(event.target.value)}>
+                                    <IconButton aria-label="delete" size="small" onClick={() => deleteRow(element[0])}>
                                         <DeleteIcon fontSize="inherit" />
                                     </IconButton>
                                 </Stack>

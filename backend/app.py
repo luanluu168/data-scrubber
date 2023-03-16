@@ -39,7 +39,7 @@ def addUsers():
 @app.route("/api/deleteUser", methods = ['POST'])
 def deleteUser():
     data = request.json
-
+    
     return jsonify(queryUser("DELETE FROM users WHERE unique_id = \'%s\'" \
                              % (data.get('unique_id')) \
                              + ' RETURNING *'))

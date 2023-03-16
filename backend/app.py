@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import psycopg2, os
 
 app = Flask(__name__)
@@ -24,8 +24,17 @@ def queryUser(q):
     return rows
 
 @app.route("/api", methods = ['GET'])
-def hello():
+def getUsers():
     return jsonify(queryUser("SELECT * FROM users"))
+
+@app.route("/api/addUsers", methods = ['POST'])
+def addUsers():
+    data = request.json
+    
+    return jsonify(queryUser("INSERT INTO users (first_name, last_name, dob, email, age) \
+                             VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" \
+                             % (data.get('firstName'), data.get('lastName'), data.get('dob'), data.get('email'), data.get('age')) \
+                             + ' RETURNING *'))
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 4000)

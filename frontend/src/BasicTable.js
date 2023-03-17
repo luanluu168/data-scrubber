@@ -11,8 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
+import UpdateUserModal from './UpdateUserModal';
 
-export default function BasicTable({message, rows, setRows}) {
+export default function BasicTable({message, setMessage, rows, setRows}) {
     const TABLE_MIN_WIDTH = 450;
 
     function getCols(element) {
@@ -44,11 +45,14 @@ export default function BasicTable({message, rows, setRows}) {
                             sx={{ border: 1 }}
                         >
                             { getCols(element) }
-                            {console.log(element[0])}
+
                             <TableCell key={i} component="th" scope="row">
                                 <Stack direction="row" alignItems="center" spacing={1}>
                                     <IconButton aria-label="delete" size="small" onClick={() => deleteRow(element[0])}>
                                         <DeleteIcon fontSize="inherit" />
+                                    </IconButton>
+                                    <IconButton aria-label="update" size="small">
+                                        <UpdateUserModal message={message} setMessage={setMessage} curElementId={element[0]}/>
                                     </IconButton>
                                 </Stack>
                             </TableCell>
@@ -82,7 +86,7 @@ export default function BasicTable({message, rows, setRows}) {
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Date</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Delete</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Edit</TableCell>
             </TableRow>
         </TableHead>
         {createTableBody(rows)}

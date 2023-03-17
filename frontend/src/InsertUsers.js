@@ -43,7 +43,11 @@ export default function InsertUsers({setOpenModal, message, setMessage}) {
 
       if(data !== 'null') {
         setOpenModal(false);
-        setMessage([...message, data]);
+        function flat(a) {
+          return a.reduce((l, r) => l.concat(Array.isArray(r) ? flat(r) : r), []); 
+        }
+        const newMessage = [...message, flat(data)];
+        setMessage(newMessage);
       } else {
         setOpenModal(true);
       }

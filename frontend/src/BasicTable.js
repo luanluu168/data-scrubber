@@ -15,7 +15,7 @@ import DeletePrompt from './DeletePrompt';
 
 export default function BasicTable({message, setMessage, rows, setRows}) {
     const [deletePrompt, setDeletePrompt] = React.useState(false);
-    const TABLE_MIN_WIDTH = 650;
+    const TABLE_MIN_WIDTH = 450;
 
     function getCols(element) {
         return element.map((e, i) => {
@@ -79,7 +79,7 @@ export default function BasicTable({message, setMessage, rows, setRows}) {
             setRows(cr); 
         }
         getRows();
-    }, [message]);
+    }, [message, setRows]);
 
   return (
     rows && 

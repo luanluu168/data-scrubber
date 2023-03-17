@@ -8,12 +8,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import UpdateUserModal from './UpdateUserModal';
+import DeletePrompt from './DeletePrompt';
 
 export default function BasicTable({message, setMessage, rows, setRows}) {
+    const [deletePrompt, setDeletePrompt] = React.useState(false);
     const TABLE_MIN_WIDTH = 650;
 
     function getCols(element) {
@@ -29,6 +30,10 @@ export default function BasicTable({message, setMessage, rows, setRows}) {
     }
 
     async function deleteRow(value) {
+        if(!deletePrompt) {
+            return;
+        }
+
         const {data} = await axios.post('/api/deleteUser', {
             unique_id: value
         });
@@ -50,8 +55,8 @@ export default function BasicTable({message, setMessage, rows, setRows}) {
 
                             <TableCell key={i} component="th" scope="row">
                                 <Stack direction="row" alignItems="center" spacing={1}>
-                                    <IconButton aria-label="delete" size="small" onClick={() => deleteRow(element[0])}>
-                                        <DeleteIcon fontSize="inherit" />
+                                    <IconButton aria-label="delete" size="small" >
+                                        <DeletePrompt deletePrompt={deletePrompt} setDeletePrompt={setDeletePrompt} deleteRow={deleteRow} value={element[0]}/>
                                     </IconButton>
                                     <IconButton aria-label="update" size="small">
                                         <UpdateUserModal message={message} setMessage={setMessage} curElementId={element[0]}/>
@@ -83,7 +88,7 @@ export default function BasicTable({message, setMessage, rows, setRows}) {
         <TableHead sx={{ border: 1.5 }}>
             <TableRow sx={{ bgcolor: 'text.disabled' }}>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Id</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>First Name</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }} width={120}>First Name</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }} width={120}>Last Name</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }} width={120}>Date</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>

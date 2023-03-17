@@ -14,7 +14,7 @@ import axios from 'axios';
 import UpdateUserModal from './UpdateUserModal';
 
 export default function BasicTable({message, setMessage, rows, setRows}) {
-    const TABLE_MIN_WIDTH = 450;
+    const TABLE_MIN_WIDTH = 650;
 
     function getCols(element) {
         return element.map((e, i) => {
@@ -32,6 +32,8 @@ export default function BasicTable({message, setMessage, rows, setRows}) {
         const {data} = await axios.post('/api/deleteUser', {
             unique_id: value
         });
+        const newMessage = message.filter(e => e[0] !== value);
+        setMessage(newMessage);
         return data;
     }
 
@@ -82,8 +84,8 @@ export default function BasicTable({message, setMessage, rows, setRows}) {
             <TableRow sx={{ bgcolor: 'text.disabled' }}>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Id</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>First Name</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Date</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }} width={120}>Last Name</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }} width={120}>Date</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 'bold' }}>Edit</TableCell>

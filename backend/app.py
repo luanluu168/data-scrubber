@@ -39,9 +39,19 @@ def addUsers():
 @app.route("/api/deleteUser", methods = ['POST'])
 def deleteUser():
     data = request.json
-    
+
     return jsonify(queryUser("DELETE FROM users WHERE unique_id = \'%s\'" \
                              % (data.get('unique_id')) \
+                             + ' RETURNING *'))
+
+@app.route("/api/updateUser", methods = ['POST'])
+def updateUser():
+    data = request.json
+    
+    return jsonify(queryUser("UPDATE users SET first_name = \'%s\', last_name = \'%s\', \
+                             dob = \'%s\', email = \'%s\', age = \'%s\' WHERE unique_id = \'%s\'" \
+                             % (data.get('firstName'), data.get('lastName'), data.get('dob'), \
+                                data.get('email'), data.get('age'), data.get('uniqueId')) \
                              + ' RETURNING *'))
 
 if __name__ == "__main__":

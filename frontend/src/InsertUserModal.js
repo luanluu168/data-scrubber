@@ -24,7 +24,7 @@ export default function InsertUserModal({message, setMessage, setRows}) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Insert Users</Button>
+      <Button onClick={handleOpen} sx={{ textTransform: 'capitalize' }}>Insert Users</Button>
       <Modal
         open={openModal}
         onClose={handleClose}

@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, Response
 import psycopg2, os
-from datetime import date
 
 app = Flask(__name__)
 
@@ -56,7 +55,6 @@ def updateUser():
                              + ' RETURNING *'))
 
 def formatData(data):
-    result = ""
     count = 0
     header = ['id', 'first name', 'last name', 'date of birth', 'email', 'age']
     MAX_COL = len(header)

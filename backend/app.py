@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 import psycopg2, os
+from datetime import date
 
 app = Flask(__name__)
 
@@ -54,5 +55,34 @@ def updateUser():
                                 data.get('email'), data.get('age'), data.get('uniqueId')) \
                              + ' RETURNING *'))
 
+def formatData(data):
+    result = ""
+    count = 0
+    header = ['id', 'first name', 'last name', 'date of birth', 'email', 'age']
+    MAX_COL = len(header)
+
+    result = ','.join(header) + "\n"
+
+    for x in data:
+        row = ""
+        for y in x:
+            row += str(y)
+            if(count < MAX_COL - 1):
+                row += ","
+            count = (count + 1) % MAX_COL
+        result += row + "\n"
+
+    return result
+
+@app.route("/api/getCSV", methods = ['GET'])
+def getCSV():
+    data = queryUser("SELECT * FROM users")
+    csv = formatData(data)
+    return Response(
+            csv,
+            mimetype="text/csv",
+            headers={"Content-disposition":
+                    "attachment; filename=result.csv"})
+
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 4000)
+    app.run(host = "0.0.0.0", port = 5000)

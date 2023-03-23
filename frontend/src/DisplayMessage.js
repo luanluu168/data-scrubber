@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import BasicTable from './BasicTable';
 import InsertUserModal from './InsertUserModal';
 import { useState } from 'react';
+import DownloadCSV from './DownloadCSV';
 
 function DisplayMessage({message, setMessage}) {
   const [rows, setRows] = useState(0);
@@ -24,6 +25,7 @@ function DisplayMessage({message, setMessage}) {
           <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             Data Scrubber
           </Typography>
+          <DownloadCSV />
           <InsertUserModal message={message} setMessage={setMessage} setRows={setRows}/>
         </Toolbar>
       </AppBar>

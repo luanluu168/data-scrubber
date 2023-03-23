@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InsertUsers from './InsertUsers';
+import AddReactionIcon from '@mui/icons-material/AddReaction';
 
 const style = {
   position: 'absolute',
@@ -24,7 +25,7 @@ export default function InsertUserModal({message, setMessage, setRows}) {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={{ textTransform: 'capitalize' }}>Insert Users</Button>
+      <Button onClick={handleOpen} variant="contained" sx={{ textTransform: 'capitalize' }} endIcon={<AddReactionIcon/>}>Insert Users</Button>
       <Modal
         open={openModal}
         onClose={handleClose}

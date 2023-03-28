@@ -9,8 +9,8 @@ Create a .env file that looks like the .env.example file and fill in the environ
 `npm install`
 
 ## To Run:
-    frontend: npm start
-    backend: flask run
+frontend: `npm start`
+backend: `flask run`
 
 
 

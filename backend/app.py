@@ -82,5 +82,61 @@ def getCSV():
             headers={"Content-disposition":
                     "attachment; filename=result.csv"})
 
+def getTableHeader(data):
+    header = []
+    str = ""
+    index = -1
+
+    for i in data:
+        index += 1
+        if i == '\n':
+            header.append(str)
+            str = ""
+            index += 1
+            break
+        elif i == ',':
+            header.append(str)
+            str = ""
+        else:
+            str += i
+
+    return header, index
+
+def addTableData(data, index, header):
+    str = ""
+    line = []
+    NUM_COLS = 6
+    res = []
+
+    for c in data[index:]:
+        if c == '\n':
+            line.append(str)
+            str = ""
+
+            if len(line) != NUM_COLS:
+                return
+            
+            res.append(queryUser("INSERT INTO users (first_name, last_name, dob, email, age) \
+                             VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" \
+                             % (line[1], line[2], line[3], line[4], line[5]) \
+                             + ' RETURNING *'))
+            line = []
+        elif c == ',':
+            line.append(str)
+            str = ""
+        else:
+            str += c
+
+    return res
+
+@app.route("/api/sendFile", methods = ['POST'])
+def sendFile():
+    f = request.files['file']
+    data = f.read().decode('utf-8')
+    header, index = getTableHeader(data)
+    res = addTableData(data, index, header)
+
+    return jsonify(len(res))
+
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000)

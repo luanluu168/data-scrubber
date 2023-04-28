@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, Response
-import psycopg2, os
+import psycopg2, os, string, random
 
 app = Flask(__name__)
 
@@ -82,6 +82,9 @@ def getCSV():
             headers={"Content-disposition":
                     "attachment; filename=result.csv"})
 
+def generateRandomChar():
+    return ''.join(random.choices(string.ascii_letters + string.digits))
+
 def getTableHeader(data):
     header = []
     str = ""
@@ -117,15 +120,15 @@ def addTableData(data, index, header):
                 return
             
             res.append(queryUser("INSERT INTO users (first_name, last_name, dob, email, age) \
-                             VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" \
-                             % (line[1], line[2], line[3], line[4], line[5]) \
-                             + ' RETURNING *'))
+                                VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" \
+                                % (line[1], line[2], line[3], line[4], line[5]) \
+                                + ' RETURNING *'))
             line = []
         elif c == ',':
             line.append(str)
             str = ""
         else:
-            str += c
+            str += c if(len(line) == 0 or len(line) == 3 or len(line) == 5) else generateRandomChar() 
 
     return res
 
@@ -136,7 +139,7 @@ def sendFile():
     header, index = getTableHeader(data)
     res = addTableData(data, index, header)
 
-    return jsonify(len(res))
+    return jsonify(res)
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000)
